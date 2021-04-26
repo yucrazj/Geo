@@ -46,7 +46,7 @@ export default function App() {
       } catch (e) {
         console.log("Error", e);
       }
-      dispatch({ type: "RETRIEVE_ID", token: userID });
+      dispatch({ type: "RETRIEVE_ID", id: userID });
     }, 1000);
   }, []);
 
