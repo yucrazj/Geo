@@ -25,7 +25,7 @@ const MainPage = () => {
 
   useEffect(() => {
     (async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
+      const { status } = await Location.requestPermissionsAsync();
       setPermisoGeo(status === "granted");
 
       let location = await Location.getCurrentPositionAsync({});
@@ -49,7 +49,7 @@ const MainPage = () => {
   }
 
   const Registro = async () => {
-      Alert.alert('','Ubicacion Guardada correctamente')
+    Alert.alert("", "Ubicacion Guardada correctamente");
     setEstado(!estado);
     if (!estado) {
       setBoton("Registrar Ingreso");
