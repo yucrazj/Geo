@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -9,7 +9,6 @@ import {
   StatusBar,
   Alert,
   Dimensions,
-  Keyboard,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -24,7 +23,7 @@ const LoginPage = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [togglePassword, setTogglePassword] = useState(true);
-  const { signIn } = useContext(AuthContext)
+  const { signIn } = useContext(AuthContext);
 
   const textInputChange = (val) => {
     setUserName(val);

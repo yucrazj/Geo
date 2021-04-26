@@ -1,7 +1,3 @@
-import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-
 import React, { useEffect, useMemo, useReducer } from "react";
 import { Dimensions, StyleSheet } from "react-native";
 import LoginPage from "./screens/Login";
@@ -13,7 +9,6 @@ import { AuthContext } from "./context/context";
 import { User } from './models/Users'
 
 export default function App() {
-  const Stack = createStackNavigator();
 
   const initialLoginState = {
     userName: null,
@@ -25,13 +20,13 @@ export default function App() {
       case "RETRIEVE_ID":
         return {
           ...prevState,
-          userID: action.token,
+          userID: action.id,
         };
       case "LOGIN":
         return {
           ...prevState,
-          userName: action.id,
-          userID: action.token,
+          userName: action.name,
+          userID: action.id,
         };
       case "LOGOUT":
         return {
@@ -88,16 +83,11 @@ export default function App() {
   return (
     <>
       <AuthContext.Provider value={authContext}>
-        {/* <NavigationContainer> */}
           {loginState.userID !== null ? (
             <MainPage></MainPage>
-            // <Stack.Navigator initialRouteName="Principal">
-            //   <Stack.Screen name="Principal" component={MainPage} />
-            // </Stack.Navigator>
           ) : (
             <LoginPage></LoginPage>
           )}
-        {/* </NavigationContainer> */}
       </AuthContext.Provider>
     </>
   );
