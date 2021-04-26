@@ -25,7 +25,7 @@ const MainPage = () => {
 
   useEffect(() => {
     (async () => {
-      const { status } = await Location.requestPermissionsAsync();
+      const { status } = await Location.requestForegroundPermissionsAsync();
       setPermisoGeo(status === "granted");
 
       let location = await Location.getCurrentPositionAsync({});
