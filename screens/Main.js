@@ -7,6 +7,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
@@ -18,7 +19,8 @@ const MainPage = () => {
   const [permisoGeo, setPermisoGeo] = useState(null);
   const [latitud, setLatitud] = useState(0);
   const [longitud, setLongitud] = useState(0);
-  const [boton, setBoton] = useState("Marcar Ingreso");
+  const [boton, setBoton] = useState("");
+  const [estado, setEstado] = useState(true);
   const { signOut } = useContext(AuthContext);
   const [userName, setUserName] = useState("");
 
@@ -35,15 +37,39 @@ const MainPage = () => {
       setUserName(nombre);
       console.log(userName);
     })();
+
+    if (estado) {
+      setBoton("Registrar Ingreso");
+    } else {
+      setBoton("Registrar Salida");
+    }
   }, []);
 
   if (!permisoGeo) {
     return <Text>Esperando por permiso de Geolocalizacion</Text>;
   }
 
+  //   const Reporte = async () => {
+  //     try {
+  //       let request = await fetch(
+  //         "https://javier123456.000webhostapp.com/controllers/servicio.php?service=Report"
+  //       );
+  //       let json = await request.json();
+  //       console.log(json);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+
   const Registro = async () => {
-    await AsyncStorage.setItem("button", "Marcar Salida");
-    setBoton("Marcar Salida");
+      Alert.alert('','Ubicacion Guardada correctamente')
+    setEstado(!estado);
+    if (!estado) {
+      setBoton("Registrar Ingreso");
+    } else {
+      setBoton("Registrar Salida");
+    }
+
     const id = await AsyncStorage.getItem("userID");
     try {
       const latLong = `${latitud}, ${longitud}`;
@@ -58,7 +84,7 @@ const MainPage = () => {
         }
       );
       let json = await request.json();
-      console.log(json)
+      console.log(json);
     } catch (error) {
       console.log(error);
     }
@@ -77,10 +103,10 @@ const MainPage = () => {
         <Text
           style={{
             fontSize: 18,
-            marginBottom : 10
+            marginBottom: 10,
           }}
         >
-          Tu Ubicacion Actual : 
+          Tu Ubicacion Actual :
         </Text>
         <MapView
           style={styles.map}
@@ -104,19 +130,9 @@ const MainPage = () => {
           <TouchableOpacity
             activeOpacity={0}
             style={styles.in}
-            onPress={() => {
-                Registro()
-            }}
-          >
-            <Text>Registrar Ingreso</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            activeOpacity={0}
-            style={styles.out}
             onPress={Registro}
           >
-            <Text>Registrar Salida</Text>
+            <Text>{boton}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -164,7 +180,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "#f79134",
   },
-  out : {
+  out: {
     paddingHorizontal: 10,
     marginHorizontal: 20,
     height: 40,
