@@ -1,7 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useContext, useEffect, useState } from "react";
 import {
-  Button,
   Dimensions,
   StyleSheet,
   Text,
@@ -48,18 +47,6 @@ const MainPage = () => {
   if (!permisoGeo) {
     return <Text>Esperando por permiso de Geolocalizacion</Text>;
   }
-
-  //   const Reporte = async () => {
-  //     try {
-  //       let request = await fetch(
-  //         "https://javier123456.000webhostapp.com/controllers/servicio.php?service=Report"
-  //       );
-  //       let json = await request.json();
-  //       console.log(json);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
 
   const Registro = async () => {
       Alert.alert('','Ubicacion Guardada correctamente')
@@ -172,15 +159,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   in: {
-    paddingHorizontal: 10,
-    marginHorizontal: 20,
-    height: 40,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 5,
-    backgroundColor: "#f79134",
-  },
-  out: {
     paddingHorizontal: 10,
     marginHorizontal: 20,
     height: 40,
